@@ -281,6 +281,7 @@ namespace ReporteInvestigador.Controllers
 
             byte[] firmaUsu = null;
 
+            string[] FechaIng = null;
             string[] FechaAcc = null;
             string[] FechaElabora = null;
 
@@ -308,6 +309,8 @@ namespace ReporteInvestigador.Controllers
             foreach (var item in datosFrm) //investigador_reporte
             {
                 var Paciente = item.paciente;
+                string nullFechaIng = item.FechaIngreso == "" ? item.FechaIngreso : item.FechaIngreso;
+                var nullHoraIng = item.HoraIngreso == "" ? item.HoraIngreso : item.HoraIngreso;
                 string nullFechaAcc = item.Fecha_acc == "" ? item.Fecha_acc : item.Fecha_acc;
                 var nullHoraAcc = item.Hora_acc == "" ? item.Hora_acc : item.Hora_acc;
                 string nullFechaElabora = item.Fecha_elaboracion == "" ? item.Fecha_elaboracion : item.Fecha_elaboracion;
@@ -315,6 +318,10 @@ namespace ReporteInvestigador.Controllers
                 DocInvestigador = item.Doc_Investigador;
                 AgenciaInvest = item.AgenciaInvest;
 
+                if (nullFechaIng != "" && nullFechaIng != null)
+                {
+                    FechaIng = nullFechaIng.Split('/');
+                }
 
                 if (nullFechaAcc != "" && nullFechaAcc != null)
                 {
@@ -326,23 +333,25 @@ namespace ReporteInvestigador.Controllers
                     FechaElabora = nullFechaElabora.Split('/');
                 }
 
+                DateTime now = DateTime.Now;
+                
                 doc.Replace("<<HOYDIA>>", FechaElabora[0], true, true);
-                doc.Replace("<<HOYMES>>", FechaElabora[1], true, true);
+                doc.Replace("<<HOYMES>>", now.ToString("MMMM"), true, true);
                 doc.Replace("<<HOYANNO>>", FechaElabora[2], true, true);
                 doc.Replace("<<ASEGURA>>", item.nombre_entidad, true, true);
-                doc.Replace("<<DIA>>", FechaAcc[0], true, true);
-                doc.Replace("<<MES>>", FechaAcc[1], true, true);
-                doc.Replace("<<ANNO>>", FechaAcc[2], true, true);
-                doc.Replace("<<HH>>", item.Hora_acc, true, true);
+                doc.Replace("<<IGDIA>>", FechaIng[0], true, true);
+                doc.Replace("<<IGMES>>", FechaIng[1], true, true);
+                doc.Replace("<<IGANNO>>", FechaIng[2], true, true);
+                doc.Replace("<<IGHH>>", item.HoraIngreso, true, true);
                 doc.Replace("<<PACIENTE>>", Paciente, true, true);
                 doc.Replace("<<TCC>>", item.TipoDocumento, true, true);
                 doc.Replace("<<NOCC>>", item.NoDocumento, true, true);
                 doc.Replace("<<CIUCC>>", item.CiudadExp, true, true);
                 doc.Replace("<<NOCASO>>", item.Caso, true, true);
-                doc.Replace("<<IGDIA>>", FechaAcc[0], true, true);
-                doc.Replace("<<IGMES>>", FechaAcc[1], true, true);
-                doc.Replace("<<IGANNO>>", FechaAcc[2], true, true);
-                doc.Replace("<<IGHH>>", item.Hora_acc, true, true);
+                doc.Replace("<<DIAACC>>", FechaAcc[0], true, true);
+                doc.Replace("<<MESACC>>", FechaAcc[1], true, true);
+                doc.Replace("<<ANNOACC>>", FechaAcc[2], true, true);
+                doc.Replace("<<HHACC>>", item.Hora_acc, true, true);
                 doc.Replace("<<DX>>", item.Diagnostico, true, true);
                 doc.Replace("<<INVESTIGADOR>>", Investigador, true, true);
                 doc.Replace("<<NODOCUMENTO>>", item.Doc_Investigador, true, true);
@@ -354,7 +363,7 @@ namespace ReporteInvestigador.Controllers
                 if (nullFechaElabora != "" && nullFechaElabora != null)
                 {
                     doc.Replace("<<HOYANNO>>", FechaElabora[0], true, true);
-                    doc.Replace("<<HOYMES>>", FechaElabora[1], true, true);
+                    doc.Replace("<<HOYMES>>", now.ToString(), true, true);
                     doc.Replace("<<HOYDIA>>", FechaElabora[2], true, true);
                 }
                 else
@@ -364,17 +373,30 @@ namespace ReporteInvestigador.Controllers
                     doc.Replace("<<HOYDIA>>", "", true, true);
                 }
 
-                if (nullFechaAcc != "" && nullFechaAcc != null)
+                if (nullFechaIng != "" && nullFechaIng != null)
                 {
-                    doc.Replace("<<ANNO>>", FechaAcc[0], true, true);
-                    doc.Replace("<<MES>>", FechaAcc[1], true, true);
-                    doc.Replace("<<DIA>>", FechaAcc[2], true, true);
+                    doc.Replace("<<IGANNO>>", FechaAcc[0], true, true);
+                    doc.Replace("<<IGMES>>", FechaAcc[1], true, true);
+                    doc.Replace("<<IGDIA>>", FechaAcc[2], true, true);
                 }
                 else
                 {
-                    doc.Replace("<<ANNO>>", "", true, true);
-                    doc.Replace("<<MES>>", "", true, true);
-                    doc.Replace("<<DIA>>", "", true, true);
+                    doc.Replace("<<IGANNO>>", "", true, true);
+                    doc.Replace("<<IGMES>>", "", true, true);
+                    doc.Replace("<<IGDIA>>", "", true, true);
+                }
+
+                if (nullFechaAcc != "" && nullFechaAcc != null)
+                {
+                    doc.Replace("<<ANNOACC>>", FechaAcc[0], true, true);
+                    doc.Replace("<<MESACC>>", FechaAcc[1], true, true);
+                    doc.Replace("<<DIAACC>>", FechaAcc[2], true, true);
+                }
+                else
+                {
+                    doc.Replace("<<ANNOACC>>", "", true, true);
+                    doc.Replace("<<MESACC>>", "", true, true);
+                    doc.Replace("<<DIAACC>>", "", true, true);
                 }
                 
 

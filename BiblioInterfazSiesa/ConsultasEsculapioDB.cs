@@ -115,7 +115,7 @@ WHERE IpConexion Like CONCAT('%',:IpConexion,'%') Order by IpConexion ";
         public List<investigador_reporte> GetDatoFormatoInvestigador(string Empresa, decimal NoCaso, Fecha fechaElab, string Usuario)
         {
             string sql = @"SELECT i.empresa, a.nombre_entidad, i.Fecha_elaboracion, CONCAT_WS(' ',i.Nombres,i.Apellidos) AS paciente, i.TipoDocumento, 
-                            i.NoDocumento, i.CiudadExp, i.Caso, i.Fecha_acc, i.Hora_acc, i.Diagnostico, CONCAT_WS(' ', v.Nombres, v.Apellidos) AS investigadores,
+                            i.NoDocumento, i.CiudadExp, i.Caso, i.FechaIngreso, i.HoraIngreso, i.Fecha_acc, i.Hora_acc, i.Diagnostico, CONCAT_WS(' ', v.Nombres, v.Apellidos) AS investigadores,
                             v.NoDocumento Doc_Investigador, v.AgenciaInvest, u.FirmaDigital FirmaUsuario
                             FROM investigador_reporte i
                             INNER JOIN investigadores v ON i.empresa = v.empresa AND i.Doc_Investigador = v.NoDocumento
