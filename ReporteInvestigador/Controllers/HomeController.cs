@@ -333,14 +333,17 @@ namespace ReporteInvestigador.Controllers
                     FechaElabora = nullFechaElabora.Split('/');
                 }
 
-                DateTime now = DateTime.Now;
-                
+                //Convierte los meses a sus nombres según el número
+                DateTime now = DateTime.Now; //mes de la Fecha actual
+                DateTime mesIngreso = item.FechaIngreso; //mes de la fecha de ingreso
+                DateTime mesAccidente = item.Fecha_acc; //mes de la fecha de accidente
+
                 doc.Replace("<<HOYDIA>>", FechaElabora[0], true, true);
-                doc.Replace("<<HOYMES>>", now.ToString("MMMM"), true, true);
+                doc.Replace("<<HOYMES>>", now.ToString("MMMM"), true, true); //mes de la Fecha actual
                 doc.Replace("<<HOYANNO>>", FechaElabora[2], true, true);
                 doc.Replace("<<ASEGURA>>", item.nombre_entidad, true, true);
                 doc.Replace("<<IGDIA>>", FechaIng[0], true, true);
-                doc.Replace("<<IGMES>>", FechaIng[1], true, true);
+                doc.Replace("<<IGMES>>", mesIngreso.ToString("MMMM"), true, true); //mes de la fecha de ingreso
                 doc.Replace("<<IGANNO>>", FechaIng[2], true, true);
                 doc.Replace("<<IGHH>>", item.HoraIngreso, true, true);
                 doc.Replace("<<PACIENTE>>", Paciente, true, true);
@@ -349,14 +352,13 @@ namespace ReporteInvestigador.Controllers
                 doc.Replace("<<CIUCC>>", item.CiudadExp, true, true);
                 doc.Replace("<<NOCASO>>", item.Caso, true, true);
                 doc.Replace("<<DIAACC>>", FechaAcc[0], true, true);
-                doc.Replace("<<MESACC>>", FechaAcc[1], true, true);
+                doc.Replace("<<MESACC>>", mesAccidente.ToString("MMMM"), true, true); //mes de la fecha de accidente
                 doc.Replace("<<ANNOACC>>", FechaAcc[2], true, true);
                 doc.Replace("<<HHACC>>", item.Hora_acc, true, true);
                 doc.Replace("<<DX>>", item.Diagnostico, true, true);
                 doc.Replace("<<INVESTIGADOR>>", Investigador, true, true);
                 doc.Replace("<<NODOCUMENTO>>", item.Doc_Investigador, true, true);
                 doc.Replace("<<EMPRESAINVEST>>", AgenciaInvest, true, true);
-                //doc.Replace("<<FIRMAFUN>>", firmaFun.ToString(), true, true);
                 doc.Replace("<<FECHA>>", item.Fecha_elaboracion, true, true);
                 //doc.Replace("<<FIRMAUSUARIO>>", item.FirmaUsuario, true, true);
 
