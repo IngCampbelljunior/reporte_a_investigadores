@@ -87,7 +87,7 @@ WHERE IpConexion Like CONCAT('%',:IpConexion,'%') Order by IpConexion ";
         public List<DatosPacientes> GetDatosPacientes(string Empresa, decimal criterio)
         {
             string sql = "SELECT p.nombre1, p.nombre2, p.Apellido1, p.Apellido2, p.TipoDocumento, p.NoDocumento, a.FechaIngreso, a.HoraIngreso,";
-            sql += "s.Fecha_Accidente, s.Hora_Accidente, c.Desc_Diag_Ing, c.Tipo_Diag,";
+            sql += "s.Fecha_Accidente, s.Hora_Accidente, c.Desc_Diag_Ing, s.Informe_Accid, c.Tipo_Diag,";
             sql += "IFNULL(p.documento_de, 'Sin Municipio') CodCiudad, IFNULL(mun.nombre, 'Sin Ciudad') Espedicion ";
             sql += "FROM cuenta c ";
             sql += "INNER JOIN pacientes p ON c.Nohistoria = p.NoHistoria ";
@@ -115,7 +115,7 @@ WHERE IpConexion Like CONCAT('%',:IpConexion,'%') Order by IpConexion ";
         public List<investigador_reporte> GetDatoFormatoInvestigador(string Empresa, decimal NoCaso, Fecha fechaElab, string Usuario)
         {
             string sql = @"SELECT i.empresa, a.nombre_entidad, i.Fecha_elaboracion, CONCAT_WS(' ',i.Nombres,i.Apellidos) AS paciente, i.TipoDocumento, 
-                            i.NoDocumento, i.CiudadExp, i.Caso, i.FechaIngreso, i.HoraIngreso, i.Fecha_acc, i.Hora_acc, i.Diagnostico, CONCAT_WS(' ', v.Nombres, v.Apellidos) AS investigadores,
+                            i.NoDocumento, i.CiudadExp, i.Caso, i.FechaIngreso, i.HoraIngreso, i.Fecha_acc, i.Hora_acc, i.Diagnostico, i.Relato, CONCAT_WS(' ', v.Nombres, v.Apellidos) AS investigadores,
                             v.NoDocumento Doc_Investigador, v.AgenciaInvest, u.FirmaDigital FirmaUsuario
                             FROM investigador_reporte i
                             INNER JOIN investigadores v ON i.empresa = v.empresa AND i.Doc_Investigador = v.NoDocumento
@@ -1490,6 +1490,7 @@ WHERE IpConexion Like CONCAT('%',:IpConexion,'%') Order by IpConexion ";
         public string Fecha_Accidente { get; set; }
         public string Hora_Accidente { get; set; }
         public string Desc_Diag_Ing { get; set; }
+        public string Informe_Accid { get; set; }
         public string Tipo_Diag { get; set; }
 
     }
@@ -1511,6 +1512,7 @@ WHERE IpConexion Like CONCAT('%',:IpConexion,'%') Order by IpConexion ";
         public Fecha Fecha_acc { get; set; }
         public string Hora_acc { get; set; }
         public string Diagnostico { get; set; }
+        public string Relato { get; set; }
         public string Doc_Investigador { get; set; }
         public byte[] FirmaUsuario { get; set; }
         public byte[] FirmaFun { get; set; }
@@ -1530,7 +1532,7 @@ WHERE IpConexion Like CONCAT('%',:IpConexion,'%') Order by IpConexion ";
         public string CiudadExp { get; set; }
         public string CorreoInvest { get; set; }
         public string AgenciaInvest { get; set; }
-        //public string Aseguradora { get; set; }
+        public string Aseguradora { get; set; }
         //public string FirmaDigital { get; set; }
         //public string Estado { get; set; }
         public string empresa { get; set; }

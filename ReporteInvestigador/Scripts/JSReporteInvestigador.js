@@ -16,13 +16,14 @@
     });
 
     //eventos de la ventana modal para captura de firma
-    //$("#btnFirma").attr("disabled", "disabled");
+    
     $('#btnFirma').click(function (e) {
         event.preventDefault(e);
 
         $("#modalSign").modal("show");
 
     });
+
     //Limpia el canvas
     $('#btnClear').click(function (e) {
 
@@ -38,12 +39,21 @@
     });
 
     //Confirma que el input "aseguradora" tenga un valor para abrir el modal de la firma
-    $("#aseguradora").change(function(){
+    
+    $("#aseguradora").change(function () {
 
         var selectedTxt = $(this).find("option:selected").text();
         var selectedValue = $(this).val();
         $("#hfaseguradora").val(selectedValue);
-        $("#btnFirma").attr("disabled",false);
+        $("#btnFirma").attr("disabled", false);
+    });
+
+    $("#agencia").change(function () {
+
+        var selectedTxt = $(this).find("option:selected").text();
+        var selectedValue = $(this).val();
+        $("#hfagencia").val(selectedValue);
+
     });
 
     $("#btnBuscarInf").click(function () {
@@ -121,6 +131,18 @@ function SaveImagenTemp(raw_image_data, Tipo) {
             //alert('Image Saved');
         }
     });
+
+    //$.post("SaveImagenTemp", { datauri: raw_image_data }, function (result) {
+
+    //    var msg = result;
+    //    console.log(result);
+
+    //    imgBase64 = result;
+    //    swfImg = true;
+
+    //    $("#modalSign").modal("hide");
+
+    //});
 }
 
 
@@ -161,7 +183,7 @@ function GetDatosPacientes(criterio) {
                 $("#fechAcci").val(this.Fecha_Accidente);
                 $("#horaAcci").val(this.Hora_Accidente);
                 $("#dX").val(this.Desc_Diag_Ing);
-                
+                $("#relato").val(this.Informe_Accid);
             });
 
         },
@@ -189,9 +211,10 @@ function GuardarReporte() {
     var fechAcci = $("#fechAcci").val();
     var horaAcci = $("#horaAcci").val();
     var dx = $("#dX").val();
+    var relato = $("#relato").val();
 
     if (aseguradora == null || aseguradora == "undefined") {
-        alert("Debe seleccionar la Aseguradorea");
+        alert("Debe seleccionar la Aseguradora");
         return;
     }
 
@@ -204,10 +227,10 @@ function GuardarReporte() {
         alert("Digite un diagnostico del paciente");
         return;
     }
+    //Empresa,Caso,Fecha_elaboracion,NoDocumento,TipoDocumento,CiudadExp,Nombres,Apellidos,FechaIngreso,HoraIngreso,Fecha_acc,Hora_acc,Diagnostico,Relato,Doc_Investigador,Aseguradora
+    var parametros = { nocaso: caso, nodocumento: numdoc, tipodocumento: tipodoc, ciudadexp: expedido, nombres: nombre, apellidos: apellido, fechaing: fechIng, horaing: horaIng, fechaacc: fechAcci, horaacci: horaAcci, diagnos: dx, relato: relato, investigador: investigador, aseguradora:aseguradora}
 
-    var parametros = { nocaso: caso, nodocumento: numdoc, tipodocumento: tipodoc, ciudadexp: expedido, nombres: nombre, apellidos: apellido, fechaing: fechIng, horaing: horaIng, fechaacc: fechAcci, horaacci: horaAcci, diagnos: dx, investigador: investigador, aseguradora:aseguradora}
-
-    $.post("RegistrarReporte", { nocaso: caso, nodocumento: numdoc, tipodocumento: tipodoc, ciudadexp: expedido, nombres: nombre, apellidos: apellido, fechaing: fechIng, horaing: horaIng, fechaacc: fechAcci, horaacci: horaAcci, diagnos: dx, investigador: investigador, aseguradora: aseguradora }, function (result) {
+    $.post("RegistrarReporte", { nocaso: caso, nodocumento: numdoc, tipodocumento: tipodoc, ciudadexp: expedido, nombres: nombre, apellidos: apellido, fechaing: fechIng, horaing: horaIng, fechaacc: fechAcci, horaacci: horaAcci, diagnos: dx, relato: relato, investigador: investigador, aseguradora: aseguradora }, function (result) {
         
         var msg = result;
         console.log(result);
@@ -275,7 +298,7 @@ function GetConsultarReportes(pFechaI, pFechaF) {
 function GuardarInvestigador() {
 
     var agencia = $("#hfagencia").val();
-    var investigador = $("#hfinvestigador").val();
+    var aseguradora = $("#hfaseguradora").val();
     var nombre = $("#nombre").val();
     var apellido = $("#apellido").val();
     var tipodoc = $("#tipodoc").val();
@@ -284,19 +307,19 @@ function GuardarInvestigador() {
     var email = $("#email").val();
    
 
-    if (aseguradora == null || aseguradora == "undefined") {
+    if (aseguradora == "-- Seleccione --" || aseguradora == null || aseguradora == "") {
         alert("Debe seleccionar la Aseguradorea");
         return;
     }
 
-    if (investigador == "-- Seleccione --" || investigador == "undefined") {
-        alert("Debe seleccionar un Investigador");
+    if (agencia == "-- Seleccione --" || agencia == null || agencia == "" ) {
+        alert("Debe seleccionar una Agencia Investigadora");
         return;
     }
+    //empresa,NoDocumento,TipoDocumento,CiudadExp,Nombres,Apellidos,CorreoInvest,AgenciaInvest,Aseguradora,FirmaDigital,Estado
+    var parametros = { nodocumento: numdoc, tipodocumento: tipodoc, ciudadexp: city, nombres: nombre, apellidos: apellido, correoinvest: email, agenciainvest: agencia, aseguradora: aseguradora}
 
-    var parametros = { nombres: nombre, apellidos: apellido, tipodocumento: tipodoc, nodocumento: numdoc, ciudadexp: city,  email: email, agencia: agencia, investigador: investigador}
-
-    $.post("RegistrarInvestigador", { nombres: nombre, apellidos: apellido, tipodocumento: tipodoc, nodocumento: numdoc, ciudadexp: city,  email: email, agencia: agencia, investigador: investigador}, function (result) {
+    $.post("RegistrarInvestigador", { nodocumento: numdoc, tipodocumento: tipodoc, ciudadexp: city, nombres: nombre, apellidos: apellido, correoinvest: email, agenciainvest: agencia, aseguradora: aseguradora}, function (result) {
 
         var msg = result;
         console.log(result);
@@ -313,12 +336,12 @@ function GuardarInvestigador() {
     });
 }
 
-
 function dt_gvPrescripcion_RowClick(ObjetoTR, tit) {
 
     var NoCaso = ObjetoTR.cells[1].childNodes[0].nodeValue;
 
-    var urlFile = "http://" + window.location.host + "/Documentos/";
+    var urlFile = "https://" + window.location.host + "/Documentos/";
+    
     var FilePDF = urlFile + NoCaso + '.pdf';
     //let pdfWindow = window.open("")
     hidden = open(FilePDF, 'NewWindow', 'top=0,left=0,width=800,height=600,status=no,resizable=no,scrollbars=yes');

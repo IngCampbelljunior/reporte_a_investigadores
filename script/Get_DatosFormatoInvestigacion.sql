@@ -21,6 +21,7 @@ BEGIN
    a.Fecha_acc,
    a.Hora_acc,
    a.Diagnostico,
+   a.Reporte,
    a.Doc_Investigador,
    a.Aseguradora,
    CONCAT(b.Nombres,' ',b.Apellidos) Investigador,

@@ -136,7 +136,7 @@ namespace ReporteInvestigador.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegistrarReporte(string nocaso, string nodocumento, string tipodocumento, string ciudadexp, string nombres, string apellidos, Fecha fechaing, string horaing, Fecha fechaacc, string horaacci, string diagnos, string investigador, string aseguradora)
+        public ActionResult RegistrarReporte(string nocaso, string nodocumento, string tipodocumento, string ciudadexp, string nombres, string apellidos, Fecha fechaing, string horaing, Fecha fechaacc, string horaacci, string diagnos, string relato, string investigador, string aseguradora)
         {
             ObtenerConexion();
             string Empresa = (string)Session["CodEmpresa"];
@@ -157,6 +157,7 @@ namespace ReporteInvestigador.Controllers
             param.AddParametro("fechaacc", fechaacc);
             param.AddParametro("horaacci", horaacci);
             param.AddParametro("diagnos", diagnos);
+            param.AddParametro("relato", relato);
             param.AddParametro("investigador", investigador);
             param.AddParametro("aseguradora", aseguradora);
 
@@ -198,8 +199,8 @@ namespace ReporteInvestigador.Controllers
 
             string urlArchivo = string.Empty;
 
-            string pathTest = Path.Combine(Server.MapPath("/Documentos"), "testfirm.jpeg");
-            string pathImg = Path.Combine(Server.MapPath("/Documentos"), "firma_output.jpeg");
+            string pathTest = Path.Combine(Server.MapPath("~/Documentos"), "testfirm.jpeg");
+            string pathImg = Path.Combine(Server.MapPath("~/Documentos"), "firma_output.jpeg");
 
             bool FicheroBloqueado = false;
             Stream retVal = null;
@@ -298,11 +299,11 @@ namespace ReporteInvestigador.Controllers
             var formNoCaso = nocaso;
             var tipoFormato = "INV";
 
-            string pathImg = Path.Combine(Server.MapPath("/Documentos"), "firma_output.jpeg");
+            string pathImg = Path.Combine(Server.MapPath("~/Documentos"), "firma_output.jpeg");
 
             Spire.Doc.Document doc = new Spire.Doc.Document();
             Spire.Doc.Document filePDF = new Spire.Doc.Document();
-            doc.LoadFromFile(Server.MapPath("/Documentos/REPOR_INV.docx"));
+            doc.LoadFromFile(Server.MapPath("~/Documentos/REPOR_INV.docx"));
 
 
 
@@ -356,6 +357,7 @@ namespace ReporteInvestigador.Controllers
                 doc.Replace("<<ANNOACC>>", FechaAcc[2], true, true);
                 doc.Replace("<<HHACC>>", item.Hora_acc, true, true);
                 doc.Replace("<<DX>>", item.Diagnostico, true, true);
+                doc.Replace("<<RELATO>>", item.Relato, true, true);
                 doc.Replace("<<INVESTIGADOR>>", Investigador, true, true);
                 doc.Replace("<<NODOCUMENTO>>", item.Doc_Investigador, true, true);
                 doc.Replace("<<EMPRESAINVEST>>", AgenciaInvest, true, true);
@@ -428,7 +430,7 @@ namespace ReporteInvestigador.Controllers
 
                 if (doc.TextBoxes.Count > 0)
                 {
-                    TextBox tb = doc.TextBoxes[0];
+                    TextBox tb = doc.TextBoxes[1];
                     tb.Format.FillEfects.Type = BackgroundType.Picture;
                     tb.Format.FillEfects.Picture = Image.FromFile(Server.MapPath("~/Documentos/firma_output.jpeg"));
                 }
@@ -490,7 +492,7 @@ namespace ReporteInvestigador.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegistrarInvestigador(string Empresa, string nodocumento, string tipodocumento, string ciudadexp, string nombres, string apellidos, string correoinves, string agenciainves, string aseguradora, string firmadigital, string estado)
+        public ActionResult RegistrarInvestigador(string Empresa, string nodocumento, string tipodocumento, string ciudadexp, string nombres, string apellidos, string correoinvest, string agenciainvest, string aseguradora)
         {
             ObtenerConexion();
             string CodEmpre = (string)Session["CodEmpresa"];
@@ -505,10 +507,10 @@ namespace ReporteInvestigador.Controllers
             param.AddParametro("ciudadexp", ciudadexp);
             param.AddParametro("nombres", nombres);
             param.AddParametro("apellidos", apellidos);
-            param.AddParametro("correoinves", correoinves);
-            param.AddParametro("agenciainves", agenciainves);
+            param.AddParametro("correoinves", correoinvest);
+            param.AddParametro("agenciainves", agenciainvest);
             param.AddParametro("aseguradora", aseguradora);
-            param.AddParametro("firmadigital", firmadigital);
+            //param.AddParametro("firmadigital", firmadigital);
             //param.AddParametro("estado", estado);
 
 

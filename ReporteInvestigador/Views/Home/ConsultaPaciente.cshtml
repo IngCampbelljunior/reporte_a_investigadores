@@ -67,6 +67,10 @@
                     <label class="label" for="">Diagnóstico Inicial</label>
                 </div>
                 <div class="inputContainer">
+                    <input class="input" type="text" name="relato" id="relato" placeholder="a" />
+                    <label class="label" for="">Versión de los hechos</label>
+                </div>
+                <div class="inputContainer">
                     @Html.DropDownList("aseguradora", ViewBag.aseguradora as SelectList, "-- Seleccione --", new { @class = "input" })
                     <label class="label">Aseguradora</label>
                 </div>
