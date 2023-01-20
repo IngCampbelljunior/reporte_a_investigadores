@@ -2,11 +2,7 @@
 using LiloSoft.DataBase.ConectaDB;
 using LiloSoft.Types.Data;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace LiloSoft.Siesa.Interfaz
 {
     [MultiEmpresa]
@@ -60,7 +56,7 @@ namespace LiloSoft.Siesa.Interfaz
         public string EstadoDetalle { get; set; }
         public decimal CantidadEntregada { get; set; }
         public string UsuarioAutoriza { get; set; }
-        public string DiasHora {get;set;}
+        public string DiasHora { get; set; }
         public Fecha FechaUltimaAplicacion { get; set; }
         public string HoraUltimaAplicacion { get; set; }
         public Int32 NumeroTotalAplicaciones { get; set; }

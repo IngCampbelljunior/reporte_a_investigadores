@@ -1,12 +1,6 @@
 ﻿using LiloSoft.Data;
 using LiloSoft.DataBase.ConectaDB;
-using LiloSoft.Types.Data;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LiloSoft.Siesa.Interfaz
 {

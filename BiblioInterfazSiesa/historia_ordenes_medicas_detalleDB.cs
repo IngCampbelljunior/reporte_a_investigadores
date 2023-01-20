@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.ComponentModel;
-using LiloSoft.DataBase.ConectaDB;
-using LiloSoft.Utils;
-using LiloSoft.Types.Data;
+﻿using LiloSoft.DataBase.ConectaDB;
 using LiloSoft.Web.ProveedorWeb;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace LiloSoft.Siesa.Interfaz
 {
-    [DataObject(true)] 
+    [DataObject(true)]
     [Description("")]
     class historia_ordenes_medicas_detalleDB : LiloSoft.Web.ProveedorWeb.BaseDB
     {

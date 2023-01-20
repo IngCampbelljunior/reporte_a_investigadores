@@ -11,12 +11,12 @@ parCiudadExp VARCHAR(60),
 parNombres VARCHAR(60),
 parApellidos VARCHAR(60),
 parCorreoInvest VARCHAR(300),
-parAgenciaInvest VARCHAR(30),
-parAseguradora VARCHAR(30),
-parFirmaDigital MEDIUMBLOB)
+parAgenciaInvest VARCHAR(60),
+parAseguradora VARCHAR(30)
+)
 BEGIN
-    INSERT INTO investigadores(empresa,NoDocumento,TipoDocumento,CiudadExp,Nombres,Apellidos,CorreoInvest,AgenciaInvest,Aseguradora,FirmaDigital,Estado)
-    VALUES(parempresa,parNoDocumento,parTipoDocumento,parCiudadExp,parNombres,parApellidos,parCorreoInvest,parAgenciaInvest,parAseguradora,parFirmaDigital,'A');
+    INSERT INTO investigadores(empresa,NoDocumento,TipoDocumento,CiudadExp,Nombres,Apellidos,CorreoInvest,AgenciaInvest,Aseguradora)
+    VALUES(parempresa,parNoDocumento,parTipoDocumento,parCiudadExp,parNombres,parApellidos,parCorreoInvest,parAgenciaInvest,parAseguradora);
 	
     SELECT 'OK' AS Msg;
     END$$

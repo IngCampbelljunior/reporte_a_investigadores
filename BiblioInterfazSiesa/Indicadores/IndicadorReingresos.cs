@@ -1,29 +1,26 @@
 ﻿using LiloSoft.Types.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LiloSoft.Siesa.Interfaz.Indicadores
 {
-  public class IndicadorReingresos : PacientesPorServicio
-  {
-    /// <summary>
-    /// Número de 
-    /// </summary>
-    public Entero NumeroReingresos { get; set; }
-    public Moneda Indicador
+#pragma warning disable CS0436 // El tipo 'PacientesPorServicio' de 'C:\Users\Usuario de red\Documents\Repos\WebSIAU\BiblioInterfazSiesa\Indicadores\PacientesPorServicio.cs' está en conflicto con el tipo importado 'PacientesPorServicio' de 'LiloSoft.SiesaInterfazLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. Se usará el tipo definido en 'C:\Users\Usuario de red\Documents\Repos\WebSIAU\BiblioInterfazSiesa\Indicadores\PacientesPorServicio.cs'.
+    public class IndicadorReingresos : PacientesPorServicio
+#pragma warning restore CS0436 // El tipo 'PacientesPorServicio' de 'C:\Users\Usuario de red\Documents\Repos\WebSIAU\BiblioInterfazSiesa\Indicadores\PacientesPorServicio.cs' está en conflicto con el tipo importado 'PacientesPorServicio' de 'LiloSoft.SiesaInterfazLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. Se usará el tipo definido en 'C:\Users\Usuario de red\Documents\Repos\WebSIAU\BiblioInterfazSiesa\Indicadores\PacientesPorServicio.cs'.
     {
-      get
-      {
-        var indicador = 0m;
-        if (NumeroPacientes!=null && NumeroPacientes != 0)
+        /// <summary>
+        /// Número de 
+        /// </summary>
+        public Entero NumeroReingresos { get; set; }
+        public Moneda Indicador
         {
-          indicador = (decimal)NumeroReingresos / (decimal)NumeroPacientes;
+            get
+            {
+                var indicador = 0m;
+                if (NumeroPacientes != null && NumeroPacientes != 0)
+                {
+                    indicador = (decimal)NumeroReingresos / (decimal)NumeroPacientes;
+                }
+                return indicador;
+            }
         }
-        return indicador;
-      }
     }
-  }
 }

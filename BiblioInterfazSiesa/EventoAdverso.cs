@@ -1,12 +1,7 @@
 ﻿using LiloSoft.Data;
 using LiloSoft.DataBase.ConectaDB;
 using LiloSoft.Types.Data;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LiloSoft.Siesa.Interfaz
 {
@@ -28,7 +23,7 @@ namespace LiloSoft.Siesa.Interfaz
         public string Sucesos { get; set; } /* Suceso del evento*/
         public string Causas { get; set; } /* Que Influyo para el suceso*/
         public string IpConexion { get; set; } /* Ip de Conexion del usuario para identificar la sede o ciudad y empresa*/
-        [BooleanEquivalent("A","I")]
+        [BooleanEquivalent("A", "I")]
         public bool Estado { get; set; } /* Estado */
         public Fecha FechaCreacion { get; set; } /*Fecha Registro en el sistema*/
 

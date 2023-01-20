@@ -1,0 +1,35 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+nav {
+    background-color: #81C784;
+}
+
+span {
+    fill: #198754;
+}
+
+.color-checked:checked {
+    background-color: #198754;
+    border: none;
+}
+
+.container {
+    max-width: 960px;
+}
+
+legend {
+    color: #198754;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+h2 {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+/*footer{
+    color: white;
+    background-color: #198754;
+  }*/
